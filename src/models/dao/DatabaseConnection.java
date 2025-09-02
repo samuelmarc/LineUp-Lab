@@ -1,12 +1,13 @@
 package models.dao;
 
+import javax.swing.filechooser.FileSystemView;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String DATABASE_PATH = String.format("jdbc:sqlite:%s", System.getProperty("user.home") + "/LineUpLabDatabase.db");
+    private static final String DATABASE_PATH = String.format("jdbc:sqlite:%s", FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "/LineUpLabDatabase.db");
 
     public static Connection getConn() throws SQLException {
         return DriverManager.getConnection(DATABASE_PATH);
@@ -19,8 +20,7 @@ public class DatabaseConnection {
                 CREATE TABLE IF NOT EXISTS 'Jogadores' (
                     'Id' INTEGER NOT NULL UNIQUE,
                     'Nome' VARCHAR NOT NULL,
-                    'DataNascimento' DATE,
-                    'NumCamisa' INTEGER,
+                    'NumCamisa' INTEGER NOT NULL,
                     PRIMARY KEY('id')
                 );
                 """

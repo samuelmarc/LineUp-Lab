@@ -12,12 +12,10 @@ import java.util.List;
 public class JogadorDAO implements DAO<Jogador> {
     @Override
     public void inserir(Jogador jogador) throws SQLException {
-        try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("INSERT INTO jogadores (nome, dataNascimento, numCamisa) VALUES (?, ?, ?)")) {
+        try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("INSERT INTO jogadores (nome, numCamisa) VALUES (?, ?)")) {
             ps.setString(1, jogador.getNome());
 
-            ps.setString(2, jogador.getDataNascimento());
-
-            ps.setInt(3, jogador.getNumCamisa());
+            ps.setInt(2, jogador.getNumCamisa());
 
             ps.executeUpdate();
         }
@@ -25,12 +23,22 @@ public class JogadorDAO implements DAO<Jogador> {
 
     @Override
     public void excluir(Jogador jogador) throws SQLException {
+        try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("DELETE FROM jogadores WHERE id = ?");) {
+            ps.setInt(1, jogador.getId());
 
+            ps.executeUpdate();
+        }
     }
 
     @Override
     public void atualizar(Jogador jogador) throws SQLException {
+        try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("UPDATE jogadores SET nome = ?, numeroCamisa = ? WHERE id = ?")) {
+            ps.setString(1, jogador.getNome());
+            ps.setInt(2, jogador.getNumCamisa());
+            ps.setInt(3, jogador.getId());
 
+            ps.executeUpdate();
+        }
     }
 
     @Override
@@ -39,7 +47,7 @@ public class JogadorDAO implements DAO<Jogador> {
         try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("SELECT * FROM jogadores")) {
             try (ResultSet rs = ps.executeQuery();) {
                 while (rs.next()) {
-                    jogadores.add(new Jogador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+                    jogadores.add(new Jogador(rs.getInt(1), rs.getString(2), rs.getInt(3)));
                 }
             }
         }

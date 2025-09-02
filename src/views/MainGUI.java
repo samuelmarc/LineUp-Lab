@@ -9,8 +9,6 @@ public class MainGUI extends JFrame {
     private JTextField txtId;
     private JLabel lblNome;
     private JTextField txtNome;
-    private JLabel lblDataNascimento;
-    private JTextField txtDataNascimento;
     private JLabel lblNumCamisa;
     private JTextField txtNumCamisa;
     private JPanel panelActions;
