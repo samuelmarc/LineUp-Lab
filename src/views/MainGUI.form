@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="views.MainGUI">
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="13" width="694" height="712"/>
+    </constraints>
+    <properties>
+      <enabled value="true"/>
+      <focusable value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="72719" binding="panelForm" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="true" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints border-constraint="North"/>
+        <properties>
+          <toolTipText value=""/>
+        </properties>
+        <border type="none" title="Dados Do Jogador">
+          <font style="1"/>
+          <title-color color="-16777216"/>
+          <color color="-16625916"/>
+        </border>
+        <children>
+          <component id="d88fc" class="javax.swing.JLabel" binding="lblId">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="33" height="13"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="ID"/>
+            </properties>
+          </component>
+          <component id="14db5" class="javax.swing.JTextField" binding="txtId">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <horizontalAlignment value="10"/>
+            </properties>
+          </component>
+          <component id="b55d8" class="javax.swing.JLabel" binding="lblNome">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Nome"/>
+            </properties>
+          </component>
+          <component id="94975" class="javax.swing.JTextField" binding="txtNome">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="8db7a" class="javax.swing.JLabel" binding="lblDataNascimento">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Data de nascimento"/>
+            </properties>
+          </component>
+          <component id="70fcb" class="javax.swing.JTextField" binding="txtDataNascimento">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="45b64" class="javax.swing.JLabel" binding="lblNumCamisa">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Num. Da Camisa"/>
+            </properties>
+          </component>
+          <component id="47a65" class="javax.swing.JTextField" binding="txtNumCamisa">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <grid id="54774" binding="panelContent" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="bd87" binding="panelActions" layout-manager="FlowLayout" hgap="-1" vgap="10" flow-align="1">
+            <constraints border-constraint="West"/>
+            <properties>
+              <autoscrolls value="false"/>
+              <minimumSize width="150" height="64"/>
+              <opaque value="true"/>
+              <preferredSize width="150" height="0"/>
+            </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+            <border type="none" title="Ações">
+              <font style="1"/>
+              <title-color color="-16777216"/>
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="45eab" class="javax.swing.JButton" binding="btnAdicionar">
+                <constraints/>
+                <properties>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <minimumSize width="92" height="-1"/>
+                  <preferredSize width="130" height="40"/>
+                  <text value="Adicionar"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+              <component id="21d0c" class="javax.swing.JButton" binding="btnAtualizar">
+                <constraints/>
+                <properties>
+                  <enabled value="false"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <minimumSize width="88" height="-1"/>
+                  <preferredSize width="130" height="40"/>
+                  <text value="Atualizar"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+              <component id="8b258" class="javax.swing.JButton" binding="btnExcluir">
+                <constraints/>
+                <properties>
+                  <enabled value="false"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <minimumSize width="78" height="-1"/>
+                  <preferredSize width="130" height="40"/>
+                  <text value="Excluir"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+              <component id="ae722" class="javax.swing.JButton" binding="btnLimpar">
+                <constraints/>
+                <properties>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <minimumSize width="131" height="-1"/>
+                  <preferredSize width="130" height="40"/>
+                  <text value="Limpar Campos"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+              <component id="a8213" class="javax.swing.JButton" binding="btnAtualizarLista">
+                <constraints/>
+                <properties>
+                  <enabled value="true"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <minimumSize width="121" height="-1"/>
+                  <preferredSize width="130" height="40"/>
+                  <text value="Atualizar Lista"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <scrollpane id="642a3" binding="panelTable">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="1685d" class="javax.swing.JTable" binding="tblJogadores">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
