@@ -51,7 +51,6 @@ public class JogadorDAO implements DAO<Jogador> {
                 }
             }
         }
-
         return jogadores;
     }
 
