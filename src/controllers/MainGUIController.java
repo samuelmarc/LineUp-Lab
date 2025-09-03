@@ -28,7 +28,7 @@ public class MainGUIController extends JFrame {
     private JTable tblJogadores;
     private JPanel panelContent;
     private JScrollPane panelTable;
-    private static final DefaultTableModel tblModel = new DefaultTableModel(new String[]{"ID", "Nome", "N° Da Camisa"}, 0) {
+    private static final DefaultTableModel TABLE_MODEL = new DefaultTableModel(new String[]{"ID", "Nome", "N° Da Camisa"}, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -44,7 +44,7 @@ public class MainGUIController extends JFrame {
         setContentPane(mainPanel);
         setVisible(true);
 
-        tblJogadores.setModel(tblModel);
+        tblJogadores.setModel(TABLE_MODEL);
         tblJogadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblJogadores.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tblJogadores.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -57,11 +57,11 @@ public class MainGUIController extends JFrame {
     }
 
     private void atualizarDadosTabela() throws SQLException {
-        tblModel.setRowCount(0);
+        TABLE_MODEL.setRowCount(0);
         List<Jogador> jogadores = JOGADOR_DAO.obterTudo();
 
         for (Jogador jogador : jogadores) {
-            tblModel.addRow(new Object[]{
+            TABLE_MODEL.addRow(new Object[]{
                     jogador.getId(),
                     jogador.getNome(),
                     jogador.getNumCamisa()
@@ -69,10 +69,21 @@ public class MainGUIController extends JFrame {
         }
     }
 
+    private void liberarUD() {
+        if (!txtId.getText().trim().isEmpty()) {
+            btnAtualizar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        } else {
+            btnAtualizar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+    }
+
     private void limparCampos() {
         txtId.setText("");
         txtNome.setText("");
         txtNumCamisa.setText("");
+        liberarUD();
     }
 
     private void adicionarEventos() {
@@ -102,6 +113,8 @@ public class MainGUIController extends JFrame {
                     txtNome.setText(tblJogadores.getValueAt(linhaSelecionada, 1).toString());
                     txtNumCamisa.setText(tblJogadores.getValueAt(linhaSelecionada, 2).toString());
                 }
+
+                liberarUD();
             }
         });
 
@@ -118,16 +131,25 @@ public class MainGUIController extends JFrame {
     }
 
     private void adicionar() throws SQLException {
-        if (!txtNome.getText().isEmpty() && !txtNumCamisa.getText().isEmpty() ) {
-            Jogador jogador = new Jogador(txtNome.getText(), Integer.parseInt(txtNumCamisa.getText()));
-            JOGADOR_DAO.inserir(jogador);
-            atualizarDadosTabela();
-        } else {
-            JOptionPane.showMessageDialog(null,"Campos invalidos porenchaos");
-        }
-    }
+        String nome = txtNome.getText().trim();
+        String numCamisaTxt = txtNumCamisa.getText().trim();
+        int numCamisa;
 
-    private void excluir() {
-        
+        if (nome.isEmpty() && numCamisaTxt.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos nome e nº da camisa vazios.");
+            return;
+        }
+
+        try {
+            numCamisa = Integer.parseInt(numCamisaTxt);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "O número da camisa deve ser um número válido.");
+            return;
+        }
+
+        Jogador jogador = new Jogador(nome, numCamisa);
+        JOGADOR_DAO.inserir(jogador);
+        atualizarDadosTabela();
+        limparCampos();
     }
 }

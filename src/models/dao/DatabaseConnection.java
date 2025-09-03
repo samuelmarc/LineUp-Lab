@@ -20,7 +20,7 @@ public class DatabaseConnection {
                 CREATE TABLE IF NOT EXISTS 'Jogadores' (
                     'Id' INTEGER NOT NULL UNIQUE,
                     'Nome' VARCHAR NOT NULL,
-                    'NumCamisa' INTEGER NOT NULL,
+                    'NumCamisa' TINYINT NOT NULL,
                     PRIMARY KEY('id')
                 );
                 """
