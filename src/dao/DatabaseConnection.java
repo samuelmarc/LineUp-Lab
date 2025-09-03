@@ -1,4 +1,4 @@
-package models.dao;
+package dao;
 
 import javax.swing.filechooser.FileSystemView;
 import java.sql.Connection;

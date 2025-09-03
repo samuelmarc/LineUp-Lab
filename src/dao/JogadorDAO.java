@@ -1,4 +1,4 @@
-package models.dao;
+package dao;
 
 import models.Jogador;
 
@@ -32,7 +32,7 @@ public class JogadorDAO implements DAO<Jogador> {
 
     @Override
     public void atualizar(Jogador jogador) throws SQLException {
-        try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("UPDATE jogadores SET nome = ?, numeroCamisa = ? WHERE id = ?")) {
+        try (Connection conn = DatabaseConnection.getConn(); PreparedStatement ps = conn.prepareStatement("UPDATE jogadores SET nome = ?, numCamisa = ? WHERE id = ?")) {
             ps.setString(1, jogador.getNome());
             ps.setInt(2, jogador.getNumCamisa());
             ps.setInt(3, jogador.getId());

@@ -1,7 +1,7 @@
 package controllers;
 
 import models.Jogador;
-import models.dao.JogadorDAO;
+import dao.JogadorDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -87,6 +87,19 @@ public class MainGUIController extends JFrame {
     }
 
     private void adicionarEventos() {
+        tblJogadores.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int linhaSelecionada = tblJogadores.getSelectedRow();
+                if (linhaSelecionada != -1) {
+                    txtId.setText(tblJogadores.getValueAt(linhaSelecionada, 0).toString());
+                    txtNome.setText(tblJogadores.getValueAt(linhaSelecionada, 1).toString());
+                    txtNumCamisa.setText(tblJogadores.getValueAt(linhaSelecionada, 2).toString());
+                }
+
+                liberarUD();
+            }
+        });
+
         btnAtualizarLista.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,19 +118,6 @@ public class MainGUIController extends JFrame {
             }
         });
 
-        tblJogadores.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int linhaSelecionada = tblJogadores.getSelectedRow();
-                if (linhaSelecionada != -1) {
-                    txtId.setText(tblJogadores.getValueAt(linhaSelecionada, 0).toString());
-                    txtNome.setText(tblJogadores.getValueAt(linhaSelecionada, 1).toString());
-                    txtNumCamisa.setText(tblJogadores.getValueAt(linhaSelecionada, 2).toString());
-                }
-
-                liberarUD();
-            }
-        });
-
         btnAdicionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -128,28 +128,94 @@ public class MainGUIController extends JFrame {
                 }
             }
         });
+
+        btnAtualizar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    atualizar();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        btnExcluir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    excluir();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
-    private void adicionar() throws SQLException {
+    private boolean camposInvalidos() {
         String nome = txtNome.getText().trim();
-        String numCamisaTxt = txtNumCamisa.getText().trim();
-        int numCamisa;
+        String numCamisa = txtNumCamisa.getText().trim();
 
-        if (nome.isEmpty() && numCamisaTxt.isEmpty()) {
+        if (nome.isEmpty() && numCamisa.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos nome e nº da camisa vazios.");
-            return;
+            return true;
         }
 
         try {
-            numCamisa = Integer.parseInt(numCamisaTxt);
+            Integer.parseInt(numCamisa);
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "O número da camisa deve ser um número válido.");
+            return true;
+        }
+
+        return false;
+    }
+
+    private void adicionar() throws SQLException {
+        if (camposInvalidos()) {
             return;
         }
 
+        String nome = txtNome.getText().trim();
+        int numCamisa = Integer.parseInt(txtNumCamisa.getText().trim());
         Jogador jogador = new Jogador(nome, numCamisa);
+
         JOGADOR_DAO.inserir(jogador);
         atualizarDadosTabela();
         limparCampos();
+
+        JOptionPane.showMessageDialog(null, "Jogador adicionado com sucesso!");
+    }
+
+    private void atualizar() throws SQLException {
+        if (camposInvalidos()) {
+            return;
+        }
+
+        int id = Integer.parseInt(txtId.getText().trim());
+        String nome = txtNome.getText().trim();
+        int numCamisa = Integer.parseInt(txtNumCamisa.getText().trim());
+        Jogador jogador = new Jogador(id, nome, numCamisa);
+
+        JOGADOR_DAO.atualizar(jogador);
+        atualizarDadosTabela();
+        limparCampos();
+
+        JOptionPane.showMessageDialog(null, "Jogador atualizado com sucesso!");
+    }
+
+    private void excluir() throws SQLException {
+        int option = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION) {
+            int id = Integer.parseInt(txtId.getText().trim());
+            Jogador jogador = new Jogador(id);
+
+            JOGADOR_DAO.excluir(jogador);
+            atualizarDadosTabela();
+            limparCampos();
+
+            JOptionPane.showMessageDialog(null, "Jogador excluído com sucesso!");
+        }
     }
 }

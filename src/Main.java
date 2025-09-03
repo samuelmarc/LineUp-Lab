@@ -1,4 +1,4 @@
-import models.dao.DatabaseConnection;
+import dao.DatabaseConnection;
 import controllers.MainGUIController;
 
 import java.sql.SQLException;
