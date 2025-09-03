@@ -104,5 +104,30 @@ public class MainGUIController extends JFrame {
                 }
             }
         });
+
+        btnAdicionar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    adicionar();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+    }
+
+    private void adicionar() throws SQLException {
+        if (!txtNome.getText().isEmpty() && !txtNumCamisa.getText().isEmpty() ) {
+            Jogador jogador = new Jogador(txtNome.getText(), Integer.parseInt(txtNumCamisa.getText()));
+            JOGADOR_DAO.inserir(jogador);
+            atualizarDadosTabela();
+        } else {
+            JOptionPane.showMessageDialog(null,"Campos invalidos porenchaos");
+        }
+    }
+
+    private void excluir() {
+        
     }
 }
